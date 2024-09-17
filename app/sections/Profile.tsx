@@ -5,6 +5,9 @@ import Section from "../components/Section";
 
 import ProfilePic from "@/public/assets/images/profile.jpeg";
 
+import Linkedin_icon from "@/public/assets/svg/Linkedin_icon";
+import Github_icon from "@/public/assets/svg/Github_icon";
+
 import { useDictionary } from "@/lib/dictionary-provider";
 
 type ButtonsProps = {}
@@ -23,10 +26,12 @@ const Buttons: React.FC<ButtonsProps> = () => {
     }
   ]
   return (
-    <div className="inline-flex gap-3">
+    <div className="inline-flex gap-3 w-full h-auto
+    md:flex-row flex-col items-center">
       {buttons.map((button, index) => (
         <button key={index} className="bg-blue-400 text-white
-        p-3 rounded-lg hover:bg-blue-600 duration-150">
+        p-3 rounded-lg hover:bg-blue-600 duration-150 
+        w-[150px] sm:w-[200px] md:w-full h-full">
           {button.name}
         </button>
       ))}
@@ -40,17 +45,32 @@ const ProfileInfo: React.FC<ProfileInfoProps> = () => {
   const {dictionary} = useDictionary();
   return (
     <div className="inline-flex flex-col
-    items-center w-full gap-3 justify-center">
+    items-center w-full gap-3 justify-center
+    h-auto">
       <h3 className="text-white">
         {dictionary.profile.presentation}
       </h3>
-      <h1 className="text-4xl text-center">
+      <h1 className="md:text-4xl text-center
+      text-2xl">
         Raymundo Guzmán
       </h1>
-      <h2 className="text-2xl">
+      <h2 className="text-base text-center
+      md:text-2xl">
         {dictionary.profile.jobtitle}
       </h2>
       <Buttons />
+      <div className="flex gap-4">
+        <a target='_blank' href="https://www.linkedin.com/in/rgzmn/">
+          <Linkedin_icon 
+          className="w-8 h-8 
+          md:w-[40px] md:h-[40px]"/>
+        </a>
+        <a target="_blank" href="https://github.com/raxhacks"> 
+          <Github_icon 
+          className="w-8 h-8 
+          md:w-[40px] md:h-[40px]"/>
+        </a>
+      </div>
     </div>
   )
 }
@@ -60,8 +80,8 @@ const Picture: React.FC<PictureProps> = () => {
   return (
     <div className="inline-flex w-full
     justify-center">
-      <div className="h-[400px] w-[400px] rounded-full
-      overflow-hidden">
+      <div className="w-full h-auto rounded-full
+      overflow-hidden max-w-[250px] md:max-w-[400px]">
         <Image src={ProfilePic} alt="Profile picture" 
         width={400} height={400}
         className="object-cover w-full h-full"/>
@@ -80,7 +100,7 @@ const Profile: React.FC<ProfileProps> = () => {
         lg:justify-center">
           <Picture />
           {/* Add a margin top for mobile */}
-          <div className="mt-12 lg:mt-0"/>
+          <div className="mt-6 md:mt-0 md:ml-6"/>
           <ProfileInfo />
         </div>
       </div>
