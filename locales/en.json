@@ -1,0 +1,48 @@
+{
+  "header": {
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "contact": "Contact",
+    "languages": [
+      {
+        "name": "Spanish",
+        "code": "es"
+      },
+      {
+        "name": "English",
+        "code": "en"
+      }
+    ]
+  },
+  "profile": {
+    "presentation": "Hello I'm",
+    "jobtitle": "Full Stack Developer",
+    "downloadcv": "Download CV",
+    "contactinfo": "Contact Info"
+  },
+  "about": {
+    "title": [
+      "Get to know",
+      "more about me"
+    ],
+    "description": "I am a Full Stack Developer. I have a passion for building innovative solutions, exercise, and entrepreneurship. As the co-founder of Scholarvy, I am excited about our journey and the potential for growth. We are currently seeking seed investment.",
+    "achievements": {
+      "title": "Personal Achievements",
+      "items": [
+        {
+          "title": "Sport Scholarship",
+          "description": "Got a scholarship to study and represent my university in Tae Kwon Do in national and international competitions."
+        },
+        {
+          "title": "Scholarvy Pre-seed Support",
+          "description": "Won $150,000 MX in pre-seed support from the Nuevo León's government."
+        },
+        {
+          "title": "Scholarvy IFE Accelerator",
+          "description": "Selected to participate in the IFE Accelerator program. Going to Silicon Valley soon for seed investment."
+        }
+      ]
+    }
+  }
+}

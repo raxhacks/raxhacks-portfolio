@@ -1,0 +1,21 @@
+.container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+  overflow: hidden;
+  position: relative;
+  /* border: 1px solid red; */
+}
+
+.slide {
+	max-width: 100%;
+	height: auto;
+	opacity: 0;
+	transition: opacity 0.75s ease-in-out;
+}
+
+.slide.active {
+	opacity: 1;
+}

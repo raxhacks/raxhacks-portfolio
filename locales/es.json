@@ -1,0 +1,48 @@
+{
+  "header": {
+    "about": "Acerca de",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "contact": "Contacto",
+    "languages": [
+      {
+        "name": "Español",
+        "code": "es"
+      },
+      {
+        "name": "Inglés",
+        "code": "en"
+      }
+    ]
+  },
+  "profile": {
+    "presentation": "Hola, soy",
+    "jobtitle": "Desarrollador Full Stack",
+    "downloadcv": "Descargar CV",
+    "contactinfo": "Contacto"
+  },
+  "about": {
+    "title": [
+      "Conoce",
+      "más sobre mí"
+    ],
+    "description": "Soy un Desarrollador Full Stack. Tengo una pasión por construir soluciones innovadoras, ejercicio, y el emprendimiento. Como cofundador de Scholarvy, estoy emocionado por nuestro viaje y el potencial de crecimiento. Actualmente estamos buscando inversión semilla.",
+    "achievements": {
+      "title": "Logros Personales",
+      "items": [
+        {
+          "title": "Beca Deportiva",
+          "description": "Obtuve una beca para estudiar y representar a mi universidad en Tae Kwon Do en competencias nacionales e internacionales."
+        },
+        {
+          "title": "Apoyo Pre-semilla de Scholarvy",
+          "description": "Ganamos $150,000 MX en apoyo pre-semilla del gobierno de Nuevo León."
+        },
+        {
+          "title": "Aceleradora IFE de Scholarvy",
+          "description": "Seleccionado para participar en el programa de aceleración IFE. Pronto iremos a Silicon Valley para conseguir inversión semilla."
+        }
+      ]
+    }
+  }
+}
