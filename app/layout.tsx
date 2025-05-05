@@ -1,41 +1,29 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { Poppins } from 'next/font/google';
+import type React from "react"
+import "./globals.css"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import { ThemeProvider } from "@/components/theme-provider"
 
-import Header from "./components/Header";
-
-import { Locale } from "@/i18n.config";
-import { getDictionary } from "@/lib/dictionary";
-import DictionaryProvider from "@/lib/dictionary-provider";
-
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['400', '700']
-})
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Ray's Portfolio",
-  description: "Raxhacks portfolio",
-};
+  title: "Minimalist Portfolio",
+  description: "A dark-themed minimalist portfolio website",
+    generator: 'v0.dev'
+}
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
-  params
 }: Readonly<{
-  children: React.ReactNode;
-  params: { lang: Locale }
+  children: React.ReactNode
 }>) {
-  const dictionary = await getDictionary(params.lang);
   return (
-    <html lang="en">
-      <body
-        className={`${poppins.className} bg-black`}
-      >
-        <DictionaryProvider dictionary={dictionary} lang={params.lang}>
-          <Header />
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           {children}
-        </DictionaryProvider>
+        </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
