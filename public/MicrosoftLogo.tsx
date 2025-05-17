@@ -5,8 +5,8 @@ interface SvgIconProps extends React.SVGProps<SVGSVGElement> {}
 const SvgIcon: React.FC<SvgIconProps> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="800"
-    height="800"
+    width="16"
+    height="16"
     fill="none"
     viewBox="0 0 24 24"
     {...props}
