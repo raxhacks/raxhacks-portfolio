@@ -9,7 +9,10 @@ const scp = Source_Code_Pro({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Minimalist Portfolio",
   description: "A dark-themed minimalist portfolio website",
-    generator: 'v0.dev'
+  generator: 'v0.dev',
+  icons: {
+    icon: '/raxhacks.ico',
+  }
 }
 
 export default function RootLayout({
