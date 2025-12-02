@@ -1,88 +1,112 @@
-"use client";
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useInView } from '@/hooks/useInView';
+import { Mail, Github, Linkedin, Twitter } from 'lucide-react';
+import { useRef } from 'react';
 
-import { Github, Linkedin, Mail, FileText } from 'lucide-react';
+const socials = [
+  { 
+    icon: Mail, 
+    label: 'Email', 
+    href: 'mailto:hello@raxhacks.com',
+    hoverBg: 'hover:bg-[#dd4b39]',
+    hoverBorder: 'hover:border-[#dd4b39]',
+  },
+  { 
+    icon: Github, 
+    label: 'GitHub', 
+    href: 'https://github.com',
+    hoverBg: 'hover:bg-[#6e5494]',
+    hoverBorder: 'hover:border-[#6e5494]',
+  },
+  { 
+    icon: Linkedin, 
+    label: 'LinkedIn', 
+    href: 'https://linkedin.com',
+    hoverBg: 'hover:bg-[#0077b5]',
+    hoverBorder: 'hover:border-[#0077b5]',
+  },
+  { 
+    icon: Twitter, 
+    label: 'Twitter', 
+    href: 'https://twitter.com',
+    hoverBg: 'hover:bg-[#1DA1F2]',
+    hoverBorder: 'hover:border-[#1DA1F2]',
+  },
+];
 
-export default function Contact() {
-  const contactLinks = [
-    {
-      icon: Github,
-      label: 'GitHub',
-      href: 'https://github.com/raxhacks',
-      bgColor: 'hover:bg-[#333]',
-      beforeColor: 'hover:before:bg-[#262626]',
-      afterColor: 'hover:after:bg-[#4a4a4a]',
-    },
-    {
-      icon: Linkedin,
-      label: 'LinkedIn',
-      href: 'https://linkedin.com/in/rgzmn',
-      bgColor: 'hover:bg-[#0077b5]',
-      beforeColor: 'hover:before:bg-[#005f8f]',
-      afterColor: 'hover:after:bg-[#3399cc]',
-    },
-    {
-      icon: Mail,
-      label: 'Email',
-      href: 'mailto:raxhacksofficial@gmail.com',
-      bgColor: 'hover:bg-[#dd4b39]',
-      beforeColor: 'hover:before:bg-[#b33a2b]',
-      afterColor: 'hover:after:bg-[#e66a5a]',
-    },
-    {
-      icon: FileText,
-      label: 'Resume',
-      href: 'https://docs.google.com/document/u/1/export?format=pdf&id=1jZztiTKtB7xbqgQdFPiGFxvj-lcCdoOfAR8NxsMkrLA&token=AC4w5ViCIZrc-K1Eioa_NuRemUQQZrbD4A%3A1764695468200&ouid=102337538904554996674&includes_info_params=true&usp=drive_web&cros_files=false&tab=t.0&inspectorResult=%7B%22pc%22%3A1%2C%22lplc%22%3A77%7D',
-      bgColor: 'hover:bg-[#27ae60]',
-      beforeColor: 'hover:before:bg-[#1e8449]',
-      afterColor: 'hover:after:bg-[#52be80]',
-      targetBlank: false,
-    }
-  ];
+export function Contact() {
+  const { ref, isInView } = useInView();
+  const sectionRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Bubble effect
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.7, 1],
+    [0.85, 1, 1, 0.85]
+  );
+
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.8, 1],
+    [0.4, 1, 1, 0.4]
+  );
+
+  // Parallax
+  const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <ul className="flex m-0 p-0 list-none">
-        {contactLinks.map((link) => (
-          <li key={link.label} className="mx-[5px] group">
-            <a
-              href={link.href}
-              target={'targetBlank' in link && link.targetBlank === false ? '_self' : '_blank'}
+    <section 
+      ref={sectionRef}
+      id="contact" 
+      className="min-h-screen flex items-center px-8 md:px-20 lg:px-32 snap-section"
+    >
+      <motion.div
+        ref={ref}
+        className="max-w-3xl"
+        style={{ scale, opacity, y }}
+        initial={{ opacity: 0, y: 50 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+      >
+        <h2 className="text-5xl mb-8">Contact</h2>
+        <p className="text-gray-400 mb-12 text-xl">
+          Let's work together on your next project. Feel free to reach out through any of the channels below.
+        </p>
+
+        <div className="flex flex-wrap gap-6">
+          {socials.map((social, index) => (
+            <motion.a
+              key={social.label}
+              href={social.href}
+              target="_blank"
               rel="noopener noreferrer"
-              className={`
-                relative block w-[210px] h-[80px] bg-white text-left pl-5
-                -rotate-[30deg] skew-x-[25deg]
-                transition-all duration-500
-                shadow-[-20px_20px_10px_rgba(0,0,0,0.5)]
-                hover:translate-x-5 hover:-translate-y-4
-                hover:shadow-[-50px_50px_50px_rgba(0,0,0,0.5)]
-                ${link.bgColor}
-                before:content-[''] before:absolute before:top-0 before:-left-5
-                before:h-full before:w-5 before:bg-[#b1b1b1]
-                before:skew-y-[-45deg] before:origin-top-right
-                before:transition-all before:duration-500
-                ${link.beforeColor}
-                after:content-[''] after:absolute after:-bottom-5 after:left-0
-                after:h-5 after:w-full after:bg-[#b1b1b1]
-                after:skew-x-[-45deg] after:origin-top-left
-                after:transition-all after:duration-500
-                ${link.afterColor}
-                no-underline
-              `}
+              className={`flex items-center gap-3 px-6 py-4 border border-white/20 rounded-lg transition-colors ${social.hoverBg} ${social.hoverBorder}`}
+              initial={{ opacity: 0, scale: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, scale: 1, y: 0 } : {}}
+              transition={{ 
+                duration: 0.6, 
+                delay: index * 0.1,
+                type: "spring",
+                bounce: 0.5
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <div className="flex items-center h-full">
-                <link.icon 
-                  className="w-8 h-8 text-[#262626] transition-colors duration-500 mr-3 group-hover:text-white shrink-0" 
-                />
-                <span 
-                  className="text-[#262626] text-sm tracking-[2px] transition-colors duration-500 group-hover:text-white"
-                >
-                  {link.label}
-                </span>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
+              <social.icon className="w-5 h-5" />
+              <span>{social.label}</span>
+            </motion.a>
+          ))}
+        </div>
+
+        <div className="mt-20 pt-8 border-t border-white/10 text-gray-500 text-sm">
+          © 2024 Raxhacks. All rights reserved.
+        </div>
+      </motion.div>
+    </section>
   );
 }

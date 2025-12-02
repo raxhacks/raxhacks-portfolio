@@ -1,86 +1,89 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import useScramble from '@/lib/useScramble';
-import { ParallaxScroll } from './components/ParallaxScroll';
+import { useState, useEffect } from 'react';
+import { AnimatedBackground } from './components/AnimatedBackground';
+import { Sidebar } from './components/Sidebar';
+import { Hero } from './components/Hero';
+import { About } from './components/About';
+import { Experience } from './components/Experience';
+import { Projects } from './components/Projects';
+import { Contact } from './components/Contact';
 
-const Home = () => {
-    const [showIntro, setShowIntro] = useState<boolean>(true);
-    const [showContent, setShowContent] = useState<boolean>(false);
-    const [showText, setShowText] = useState<boolean>(false);
-    const {text, scrambleTo} = useScramble("Top 1");
+export default function App() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-    useEffect(() => {
-        const introTimer = setTimeout(() => {
-            setShowIntro(false);
-            setShowContent(true); // Show content immediately when intro ends
-        }, 4000);
-        
-        // Show text after 0.5s (which triggers blur)
-        const textTimer = setTimeout(() => {
-            setShowText(true);
-        }, 500);
-        
-        const firstScramble = setTimeout(() => {
-            scrambleTo("Ray G.");
-        }, 1000);
-        const secondScramble = setTimeout(() => {
-            scrambleTo("Raxhacks");
-        }, 2500);
-        return () => {
-            clearTimeout(introTimer);
-            clearTimeout(textTimer);
-            clearTimeout(firstScramble);
-            clearTimeout(secondScramble);
-        };
-    }, []);
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
 
-    return (
-        <div>
-            {/* {showContent && <Header/>} */}
-            
-            {/* ParallaxScroll is always rendered but hidden behind intro */}
-            <div className={`flex h-screen ${showContent ? 'visible' : 'invisible'}`}>
-                {/* <section className='w-1/2'>
-                    <MeTab />
-                </section> */}
-                <section className='w-full'>
-                    <ParallaxScroll />
-                </section>
-            </div>
-            
-            {/* Intro overlay - no exit animation, just disappears */}
-            {showIntro && (
-                <div className="fixed inset-0 z-10">
-                    {/* Background image */}
-                    <div 
-                        className={`absolute inset-0 bg-cover bg-center transition-[filter] duration-700 ease-out ${showText ? 'blur-xs' : 'blur-0'}`}
-                        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1515163988842-60ece4c9a5bb?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fG5ldyUyMHlvcmslMjBuaWdodHxlbnwwfHwwfHx8MA%3D%3D')" }}
-                    />
-                    
-                    {/* Text overlay */}
-                    <AnimatePresence>
-                        {showText && (
-                            <motion.div
-                                initial={{ scale: 0, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                transition={{
-                                    scale: { type: 'spring', stiffness: 200, damping: 15 },
-                                    opacity: { duration: 0.3 }
-                                }}
-                                className="absolute inset-0 flex items-center justify-center"
-                            >
-                                <h1 className="text-5xl md:text-7xl lg:text-8xl text-white/80 font-black">
-                                    {text}
-                                </h1>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </div>
-            )}
-        </div>
-    );
-};
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
-export default Home;
+  return (
+    <div className="relative min-h-screen bg-black text-white overflow-x-hidden snap-container">
+      <AnimatedBackground />
+      
+      {/* Grid overlay that gets highlighted by flashlight */}
+      <div className="pointer-events-none fixed inset-0 z-10">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern
+              id="grid-highlight"
+              width="60"
+              height="60"
+              patternUnits="userSpaceOnUse"
+            >
+              <rect
+                width="60"
+                height="60"
+                fill="none"
+                stroke="rgba(255, 255, 255, 0.4)"
+                strokeWidth="1"
+              />
+            </pattern>
+            <radialGradient id="spotlight">
+              <stop offset="0%" stopColor="white" stopOpacity="1" />
+              <stop offset="40%" stopColor="white" stopOpacity="0.6" />
+              <stop offset="70%" stopColor="white" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="white" stopOpacity="0" />
+            </radialGradient>
+            <mask id="spotlight-mask">
+              <circle
+                cx={mousePosition.x}
+                cy={mousePosition.y}
+                r="300"
+                fill="url(#spotlight)"
+              />
+            </mask>
+          </defs>
+          <rect 
+            width="100%" 
+            height="100%" 
+            fill="url(#grid-highlight)"
+            mask="url(#spotlight-mask)"
+          />
+        </svg>
+      </div>
+
+      {/* Subtle glow effect */}
+      <div
+        className="pointer-events-none fixed inset-0 z-10"
+        style={{
+          background: `radial-gradient(circle 300px at ${mousePosition.x}px ${mousePosition.y}px, rgba(255, 255, 255, 0.03) 0%, transparent 70%)`,
+        }}
+      />
+
+      <Sidebar />
+
+      <main className="relative z-20">
+        <Hero />
+        <About />
+        <Experience />
+        <Projects />
+        <Contact />
+      </main>
+    </div>
+  );
+}
