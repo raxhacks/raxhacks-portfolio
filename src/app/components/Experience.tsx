@@ -17,7 +17,7 @@ export default function Experience() {
       <div className="w-full px-4 font-extrabold text-center text-[calc(1rem+10vmin)]">
         {/* Intro */}
         <div className="experience-box pt-[50vh]">
-          <p className="experience-text mx-auto text-balance bg-gradient-experience bg-size-[400%] bg-clip-text text-transparent text-[250px]">
+          <p className="experience-text mx-auto text-balance bg-gradient-experience bg-size-[400%] bg-clip-text text-transparent text-[15vw] md:text-[12vw] lg:text-[10vw]">
             EXPERIENCE
           </p>
         </div>
