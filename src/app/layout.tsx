@@ -21,11 +21,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className={`${sourceSans.variable} h-full`}>
-            <body className="antialiased min-h-screen flex flex-col h-full">
+            <body className="bg-black antialiased min-h-screen flex flex-col h-full">
                 <main className="flex-1">
                     {children}
                 </main>
-                <Footer />
             </body>
         </html>
     );

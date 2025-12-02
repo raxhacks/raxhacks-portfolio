@@ -1,66 +1,84 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { Inter } from 'next/font/google';
-
-const inter = Inter({ subsets: ['latin'] });
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import useScramble from '@/lib/useScramble';
+import { ParallaxScroll } from './components/ParallaxScroll';
 
 const Home = () => {
-    // timings
-    const MYSTICAL_MS = 1500;
-    const VISIBLE_MS = 1000;
-    const FADE_OUT_MS = 800;
-    const EXTRA_DELAY_MS = 500; // extra delay before showing Experiences
-
-    const [showExperiences, setShowExperiences] = useState(false);
-    const [textFadingOut, setTextFadingOut] = useState(false);
+    const [showIntro, setShowIntro] = useState<boolean>(true);
+    const [showContent, setShowContent] = useState<boolean>(false);
+    const [showText, setShowText] = useState<boolean>(false);
+    const {text, scrambleTo} = useScramble("Top 1");
 
     useEffect(() => {
-        // after mystical appear + visible -> fade out text, then show experiences
-        const t1 = setTimeout(() => setTextFadingOut(true), MYSTICAL_MS + VISIBLE_MS);
-        const t2 = setTimeout(
-            () => setShowExperiences(true),
-            MYSTICAL_MS + VISIBLE_MS + FADE_OUT_MS + EXTRA_DELAY_MS
-        );
+        const introTimer = setTimeout(() => {
+            setShowIntro(false);
+            setShowContent(true); // Show content immediately when intro ends
+        }, 4000);
+        
+        // Show text after 0.5s (which triggers blur)
+        const textTimer = setTimeout(() => {
+            setShowText(true);
+        }, 500);
+        
+        const firstScramble = setTimeout(() => {
+            scrambleTo("Ray G.");
+        }, 1000);
+        const secondScramble = setTimeout(() => {
+            scrambleTo("Raxhacks");
+        }, 2500);
         return () => {
-            clearTimeout(t1);
-            clearTimeout(t2);
+            clearTimeout(introTimer);
+            clearTimeout(textTimer);
+            clearTimeout(firstScramble);
+            clearTimeout(secondScramble);
         };
     }, []);
 
     return (
-        <div
-            className="min-h-screen bg-gradient-noise overflow-x-hidden relative no-scrollbar
-    bg-background text-foreground container mx-auto flex flex-col"
-        >
-            {/* Subtle noise overlay */}
-            <div className="fixed inset-0 opacity-5 pointer-events-none">
-                <div className="absolute inset-0 bg-gradient-noise animate-noise-float"></div>
+        <div>
+            {/* {showContent && <Header/>} */}
+            
+            {/* ParallaxScroll is always rendered but hidden behind intro */}
+            <div className={`flex h-screen ${showContent ? 'visible' : 'invisible'}`}>
+                {/* <section className='w-1/2'>
+                    <MeTab />
+                </section> */}
+                <section className='w-full'>
+                    <ParallaxScroll />
+                </section>
             </div>
             
-            {/* Hero Section */}
-            <section
-                className={`min-h-screen flex py-4 ${!showExperiences ? 'justify-center' : 'justify-start'} 
-          relative flex-col items-center`}
-            >
-                {!showExperiences && (
-                    <div className="text-center z-10">
-                        <div className="space-y-12">
-                            <h1
-                                className="text-6xl md:text-8xl lg:text-9xl font-black text-foreground 
-            leading-none tracking-tight "
+            {/* Intro overlay - no exit animation, just disappears */}
+            {showIntro && (
+                <div className="fixed inset-0 z-10">
+                    {/* Background image */}
+                    <div 
+                        className={`absolute inset-0 bg-cover bg-center transition-[filter] duration-700 ease-out ${showText ? 'blur-xs' : 'blur-0'}`}
+                        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1515163988842-60ece4c9a5bb?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fG5ldyUyMHlvcmslMjBuaWdodHxlbnwwfHwwfHx8MA%3D%3D')" }}
+                    />
+                    
+                    {/* Text overlay */}
+                    <AnimatePresence>
+                        {showText && (
+                            <motion.div
+                                initial={{ scale: 0, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{
+                                    scale: { type: 'spring', stiffness: 200, damping: 15 },
+                                    opacity: { duration: 0.3 }
+                                }}
+                                className="absolute inset-0 flex items-center justify-center"
                             >
-                                <div
-                                    className={`opacity-0 ${textFadingOut ? 'animate-fade-out' : 'animate-hero-text'}`}
-                                >
-                                    RAXHACKS
-                                </div>
-                            </h1>
-                        </div>
-                    </div>
-                )}
-            </section>
-            
+                                <h1 className="text-5xl md:text-7xl lg:text-8xl text-white/80 font-black">
+                                    {text}
+                                </h1>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+            )}
         </div>
     );
 };
