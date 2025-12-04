@@ -25,25 +25,22 @@ export default async function middleware(req: NextRequest) {
     if (req.nextUrl.pathname.startsWith('/api/auth')) {
         return NextResponse.next()
     }
-
+    const isValid = await isSessionValid(req)
     if (req.nextUrl.pathname.startsWith('/api')) {
         const method = (req.method || '').toUpperCase()
         if (method === 'POST' || method === 'PUT') {
-            const isValid = await isSessionValid(req)
             if (!isValid) {
                 return new NextResponse('Unauthorized', { status: 401 })
             }
         }
     }
 
-    if (req.nextUrl.pathname.startsWith('/VvXwAy5kKv')) {
-        const isValid = await isSessionValid(req)
+    if (req.nextUrl.pathname.startsWith('/VvXwAy5kKv') && req.nextUrl.pathname !== '/VvXwAy5kKv') {
         if (!isValid) {
-            return new NextResponse('Unauthorized', { status: 401 })
+            return NextResponse.redirect(new URL('/VvXwAy5kKv', req.nextUrl.origin))
         }
-        else if (req.nextUrl.pathname === '/VvXwAy5kKv' && isValid) {
-            return NextResponse.redirect(new URL('/VvXwAy5kKv/main', req.nextUrl.origin))
-        }
+    } else if (req.nextUrl.pathname === '/VvXwAy5kKv' && isValid) {
+        return NextResponse.redirect(new URL('/VvXwAy5kKv/main', req.nextUrl.origin))
     }
 
     return NextResponse.next()
