@@ -6,6 +6,8 @@ export const auth = betterAuth({
     trustedOrigins: [
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "https://www.raxhacks.com",
+        "https://raxhacks.com",
         process.env.BETTER_AUTH_URL || "",
         process.env.NEXT_PUBLIC_APP_URL || "",
     ].filter(Boolean),
