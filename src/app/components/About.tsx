@@ -56,18 +56,14 @@ export function About() {
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <p>
-            I'm a passionate developer with a keen eye for design and a love for creating
-            seamless digital experiences. My work bridges the gap between functionality
-            and aesthetics.
+            I'm a software engineer that loves start-ups. Ex-big tech intern. 2x founder and even got to Shark Tank Mexico once! All this while in college.
           </p>
           <p>
-            With expertise in modern web technologies, I specialize in building responsive,
-            performant applications that prioritize user experience. Every project is an
-            opportunity to push creative boundaries.
+            I have worked mostly with web technologies like React, Next.js, Node.js, and more. Even though, the projects/start-ups and big tech expericne, have allowed me to
+            help build systems in high scales, so i have experiece in microservices (even building the whole arch from scratch!), cloud computing, and (of course) AI.
           </p>
           <p>
-            When I'm not coding, you'll find me exploring new design trends, contributing
-            to open source, or experimenting with emerging technologies.
+            When I'm not coding, you'll find me running 10ks, at the gym, at MMA class, or exploring new tech trends. I don't believe in work-life balance; I believe in work-life integration.
           </p>
         </motion.div>
       </motion.div>

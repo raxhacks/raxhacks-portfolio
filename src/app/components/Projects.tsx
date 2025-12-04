@@ -3,62 +3,30 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { useInView } from '@/hooks/useInView';
 import { ChevronLeft, ChevronRight, Github, ExternalLink, X } from 'lucide-react';
 
-const projects = [
-  {
-    title: 'E-Commerce Platform',
-    shortTitle: 'E-Commerce',
-    description: 'Full-stack e-commerce solution with real-time inventory, payment integration, and analytics.',
-    tech: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
-    year: '2024',
-    images: [
-      'https://images.unsplash.com/photo-1557821552-17105176677c?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop',
-    ],
-  },
-  {
-    title: 'AI Content Generator',
-    shortTitle: 'AI Generator',
-    description: 'Machine learning powered content creation tool for marketers with multi-language support and brand voice customization.',
-    tech: ['Python', 'TensorFlow', 'React', 'FastAPI'],
-    year: '2024',
-    images: [
-      'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1655635949348-953b0e3c140a?w=1200&h=800&fit=crop',
-    ],
-  },
-  {
-    title: 'Real-Time Collaboration',
-    shortTitle: 'Collaboration',
-    description: 'WebSocket-based workspace with live editing, video conferencing, task management, and real-time presence indicators.',
-    tech: ['TypeScript', 'Socket.io', 'Redis', 'MongoDB'],
-    year: '2023',
-    images: [
-      'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1531498860502-7c67cf02f657?w=1200&h=800&fit=crop',
-    ],
-  },
-  {
-    title: 'Portfolio Manager',
-    shortTitle: 'Portfolio',
-    description: 'Investment tracking with real-time market data, analytics, risk assessment, and automated reporting features.',
-    tech: ['Vue.js', 'Express', 'MySQL', 'Chart.js'],
-    year: '2023',
-    images: [
-      'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1535320903710-d993d3d77d29?w=1200&h=800&fit=crop',
-    ],
-  },
-];
+import { IProjectWithRelations } from '@/types/project';
+import Image from 'next/image';
 
 export function Projects() {
   const { ref, isInView } = useInView();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [projects, setProjects] = useState<IProjectWithRelations[]>([]);
+
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        const response = await fetch('/api/projects');
+        const data = await response.json();
+        setProjects(data);
+        console.log('Fetched projects:', data);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      }
+    }
+
+    fetchProjects();
+  }, []);
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -156,8 +124,21 @@ export function Projects() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="text-center">
-                  <div className="text-2xl mb-2">{project.shortTitle}</div>
+                <div className="flex items-center justify-center flex-col">
+                    <div className="mb-4 w-16 h-16">
+                        {project.project_logo_url ? (
+                            <Image
+                                src={project.project_logo_url}
+                                alt={`${project.name} Logo`}
+                                className="w-full h-full object-contain"
+                                width={64}
+                                height={64}
+                            />
+                        ) : (
+                            <></>
+                        )}
+                    </div>
+                  <div className="text-2xl mb-2">{project.name}</div>
                   <div className="text-xs text-gray-500">{project.year}</div>
                 </div>
               </motion.button>
@@ -203,9 +184,9 @@ export function Projects() {
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={currentImageIndex}
-                    src={projects[selectedProject].images[currentImageIndex]}
-                    alt={`${projects[selectedProject].title} - Image ${currentImageIndex + 1}`}
-                    className="w-full h-full object-cover"
+                    src={projects[selectedProject].images[currentImageIndex].image_url}
+                    alt={`${projects[selectedProject].name} - Image ${currentImageIndex + 1}`}
+                    className="w-full h-full object-cover object-top"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -251,7 +232,7 @@ export function Projects() {
               <div className="p-8">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h3 className="text-2xl mb-1">{projects[selectedProject].title}</h3>
+                    <h3 className="text-2xl mb-1">{projects[selectedProject].name}</h3>
                     <div className="text-xs text-gray-500">{projects[selectedProject].year}</div>
                   </div>
                 </div>
@@ -261,18 +242,40 @@ export function Projects() {
                 </p>
 
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {projects[selectedProject].tech.map((tech, i) => (
+                  {projects[selectedProject].tags.map((tag, i) => (
                     <span
                       key={i}
                       className="px-3 py-1 text-xs border border-white/20 rounded-full"
                     >
-                      {tech}
+                      {tag.name}
                     </span>
                   ))}
                 </div>
 
                 <div className="flex gap-3">
-                  <motion.button 
+                    {
+                        projects[selectedProject].links.map((link, index) => (
+                            <motion.a 
+                                key={index}
+                                href={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`flex items-center gap-2 px-4 py-2 text-sm rounded-lg hover:underline transition-colors ${
+                                    link.name === 'GitHub' 
+                                        ? 'border border-white/20 hover:bg-white/5' 
+                                    : link.name === 'YouTube' 
+                                        ? 'bg-[#FF0000] hover:bg-[#FF0000]/5 text-white border border-[#FF0000]' 
+                                    : 'bg-white text-black hover:bg-white/90'
+                                }`}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                {link.name === 'GitHub' ? <Github className="w-4 h-4" /> : <ExternalLink className="w-4 h-4" />}
+                                {link.name === 'GitHub' ? 'Code' : link.name === 'YouTube' ? 'YouTube' : 'Demo'}
+                            </motion.a>
+                        )) 
+                    }
+                  {/* <motion.button 
                     className="flex items-center gap-2 px-4 py-2 text-sm border border-white/20 rounded-lg hover:bg-white/5 transition-colors"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -287,7 +290,7 @@ export function Projects() {
                   >
                     <ExternalLink className="w-4 h-4" />
                     Demo
-                  </motion.button>
+                  </motion.button> */}
                 </div>
               </div>
             </motion.div>

@@ -75,7 +75,7 @@ export function Contact() {
       >
         <h2 className="text-5xl mb-8">Contact</h2>
         <p className="text-gray-400 mb-12 text-xl">
-          Let's work together on your next project. Feel free to reach out through any of the channels below.
+          Let's build a unicorn 🦄.
         </p>
 
         <div className="flex flex-wrap gap-6">

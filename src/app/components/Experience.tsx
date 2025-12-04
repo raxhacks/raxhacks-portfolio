@@ -1,40 +1,14 @@
+"use client"
+
 import { motion, useScroll, useTransform, AnimatePresence, useInView as useFramerInView } from 'framer-motion';
 import { useInView } from '@/hooks/useInView';
 import { useRef, useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 
-const experiences = [
-  {
-    company: 'Tech Innovations Inc.',
-    role: 'Senior Full Stack Developer',
-    period: '2024 - Present',
-    description: 'Led development of enterprise-scale applications using React, Node.js, and cloud infrastructure. Managed a team of 5 developers and implemented CI/CD pipelines.',
-    logo: 'TI',
-  },
-  {
-    company: 'Digital Solutions Co.',
-    role: 'Frontend Developer',
-    period: '2022 - 2024',
-    description: 'Built responsive web applications with focus on performance and accessibility. Improved page load times by 60% through optimization.',
-    logo: 'DS',
-  },
-  {
-    company: 'StartUp Labs',
-    role: 'Junior Developer',
-    period: '2020 - 2022',
-    description: 'Contributed to multiple projects, learning modern development practices and agile methodologies. Developed key features for mobile app.',
-    logo: 'SL',
-  },
-  {
-    company: 'Freelance',
-    role: 'Web Developer',
-    period: '2019 - 2020',
-    description: 'Worked with various clients to deliver custom web solutions and digital products. Built 15+ websites and applications.',
-    logo: 'FR',
-  },
-];
+import { IExperience } from '@/types/experience';
+import Image from 'next/image';
 
-function ExperienceCard({ exp, index, onSelect }: { exp: typeof experiences[0], index: number, onSelect: () => void }) {
+function ExperienceCard({ exp, index, onSelect }: { exp: IExperience, index: number, onSelect: () => void }) {
   const cardRef = useRef(null);
   const [mounted, setMounted] = useState(false);
   const isInView = useFramerInView(cardRef, { 
@@ -82,7 +56,12 @@ function ExperienceCard({ exp, index, onSelect }: { exp: typeof experiences[0], 
               whileTap={{ scale: 0.95 }}
             >
               <div className="text-3xl mb-3 text-gray-400 group-hover:text-white transition-colors">
-                {exp.logo}
+                <Image
+                  src={exp.company_logo_url || ''}
+                  alt={`${exp.company_name} logo`}
+                  width={48}
+                  height={48}
+                />
               </div>
               <div className="text-xs text-center text-gray-400 group-hover:text-gray-300 transition-colors">
                 {exp.role}
@@ -130,7 +109,12 @@ function ExperienceCard({ exp, index, onSelect }: { exp: typeof experiences[0], 
               whileTap={{ scale: 0.95 }}
             >
               <div className="text-3xl mb-3 text-gray-400 group-hover:text-white transition-colors">
-                {exp.logo}
+                <Image
+                  src={exp.company_logo_url || ''}
+                  alt={`${exp.company_name} logo`}
+                  width={48}
+                  height={48}
+                />
               </div>
               <div className="text-xs text-center text-gray-400 group-hover:text-gray-300 transition-colors">
                 {exp.role}
@@ -143,10 +127,13 @@ function ExperienceCard({ exp, index, onSelect }: { exp: typeof experiences[0], 
   );
 }
 
+// ExperienceForm and admin modal moved to admin ExperienceTable to avoid duplication
+
 export function Experience() {
   const { ref, isInView } = useInView();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [selectedExp, setSelectedExp] = useState<number | null>(null);
+  const [experiences, setExperiences] = useState<IExperience[]>([]);
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -169,6 +156,20 @@ export function Experience() {
   // Parallax
   const y = useTransform(scrollYProgress, [0, 1], [80, -80]);
 
+  useEffect(() => {
+    async function fetchExperiences() {
+      try {
+        const response = await fetch('/api/experiences');
+        const data = await response.json();
+        setExperiences(data);
+      } catch (error) {
+        console.error('Error fetching experiences:', error);
+      }
+    }
+
+    fetchExperiences();
+  }, []);
+
   return (
     <>
       <section 
@@ -190,6 +191,8 @@ export function Experience() {
             Experience
           </motion.h2>
 
+          {/* admin modal moved to admin ExperienceTable; public portfolio doesn't expose creation UI */}
+
           <div className="relative flex flex-col gap-12 md:gap-16">
             {/* Vertical timeline line */}
             <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-white/10" />
@@ -209,7 +212,7 @@ export function Experience() {
       <AnimatePresence>
         {selectedExp !== null && (
           <motion.div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -231,10 +234,19 @@ export function Experience() {
                 <X className="w-4 h-4" />
               </button>
 
-              <div className="text-4xl text-gray-400 mb-4">{experiences[selectedExp].logo}</div>
+              <div className="text-4xl text-gray-400 mb-4">
+                <Image
+                  src={experiences[selectedExp].company_logo_url || ''}
+                  alt={`${experiences[selectedExp].company_name} logo`}
+                  width={48}
+                  height={48}
+                />
+              </div>
               <h3 className="text-2xl mb-2">{experiences[selectedExp].role}</h3>
-              <div className="text-sm text-gray-400 mb-2">{experiences[selectedExp].company}</div>
-              <div className="text-xs text-gray-500 mb-4">{experiences[selectedExp].period}</div>
+              <div className="text-sm text-gray-400 mb-2">{experiences[selectedExp].company_name}</div>
+              <div className="text-xs text-gray-500 mb-4">
+                {`${new Date(experiences[selectedExp].start_date).toLocaleDateString(undefined, { month: 'short', year: 'numeric' })} - ${experiences[selectedExp].end_date ? new Date(experiences[selectedExp].end_date).toLocaleDateString(undefined, { month: 'short', year: 'numeric' }) : 'Present'}`}
+              </div>
               <p className="text-sm text-gray-300 leading-relaxed">
                 {experiences[selectedExp].description}
               </p>
