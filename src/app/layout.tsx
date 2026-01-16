@@ -26,11 +26,9 @@ export default function RootLayout({
     return (
         <html lang="en" className={`${sourceSans.variable} h-full`}>
             <head>
-                {/* prefer site-hosted favicon for best compatibility and for search engines */}
-                <link rel="icon" href="/favicon.ico" />
-                {/* keep external as fallback (served from Convex) */}
-                <link rel="icon" href="https://sensible-spoonbill-485.convex.cloud/api/storage/43dfc8ec-031f-4589-b150-37e1b0e5b7de" />
-                <link rel="apple-touch-icon" href="/favicon.ico" />
+                {/* explicit fallback link tag in case metadata handling differs across runtimes */}
+                {/* <link rel="icon" href="https://sensible-spoonbill-485.convex.cloud/api/storage/43dfc8ec-031f-4589-b150-37e1b0e5b7de" />
+                <link rel="apple-touch-icon" href="https://sensible-spoonbill-485.convex.cloud/api/storage/43dfc8ec-031f-4589-b150-37e1b0e5b7de" /> */}
             </head>
             <body className="bg-black antialiased min-h-screen flex flex-col h-full">
                 <Toaster theme="dark" position="top-right" richColors />
