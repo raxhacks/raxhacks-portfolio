@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Título -->
+    <title>Sentit Legal - Asesoría Legal Profesional</title>
+    
+    <!-- Meta Tags Básicos -->
+    <meta name="description" content="Sentit Legal - Especialistas en asesoría legal, garantías de arrendamiento, derecho civil, familiar y corporativo. Tu tranquilidad es nuestra prioridad.">
+    <meta name="keywords" content="sentit legal, asesoría legal, abogados, garantías, derecho civil, derecho familiar">
+    <meta name="author" content="Sentit Legal">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sentitlegal.com/">
+    <meta property="og:title" content="Sentit Legal - Asesoría Legal Profesional">
+    <meta property="og:description" content="Especialistas en asesoría legal, garantías de arrendamiento, derecho civil, familiar y corporativo. Tu tranquilidad es nuestra prioridad.">
+    <meta property="og:image" content="https://sensible-spoonbill-485.convex.cloud/api/storage/035fe4ce-d898-4e65-ac33-d389bc513f0c">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Sentit Legal">
+    <meta property="og:locale" content="es_MX">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://sentitlegal.com/">
+    <meta property="twitter:title" content="Sentit Legal - Asesoría Legal Profesional">
+    <meta property="twitter:description" content="Especialistas en asesoría legal, garantías de arrendamiento, derecho civil, familiar y corporativo. Tu tranquilidad es nuestra prioridad.">
+    <meta property="twitter:image" content="https://sensible-spoonbill-485.convex.cloud/api/storage/035fe4ce-d898-4e65-ac33-d389bc513f0c">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://sensible-spoonbill-485.convex.cloud/api/storage/43dfc8ec-031f-4589-b150-37e1b0e5b7de">
+    <link rel="apple-touch-icon" href="https://sensible-spoonbill-485.convex.cloud/api/storage/43dfc8ec-031f-4589-b150-37e1b0e5b7de">
+    <link rel="shortcut icon" type="image/x-icon" href="https://sensible-spoonbill-485.convex.cloud/api/storage/43dfc8ec-031f-4589-b150-37e1b0e5b7de">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#09052f">
+    <script type="module" crossorigin src="/assets/index-Ct6asqfG.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D5_qoLud.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
