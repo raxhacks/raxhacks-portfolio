@@ -13,9 +13,12 @@ export const metadata: Metadata = {
     title: 'Raxhacks',
     description: "Raxhacks' portfolio website",
     icons: {
-        icon: '/favicon.svg',
-        shortcut: '/favicon.svg',
-        apple: '/favicon.svg',
+        // Next.js will generate the correct tags for these
+        icon: [
+            { url: '/favicon.ico', type: 'image/x-icon' },
+        ],
+        shortcut: '/favicon.svg?v=1',
+        apple: '/favicon.svg?v=1',
     },
 };
 
@@ -26,14 +29,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className={`${sourceSans.variable} h-full`}>
-            <head>
-                {/* prefer SVG favicon when available, with a PNG/ICO fallback for legacy browsers */}
-                {/* add a version query param to force browsers/CDN to re-fetch when you bump it */}
-                <link rel="icon" href="/favicon.svg?v=1" type="image/svg+xml" />
-                <link rel="icon" href="/favicon.ico?v=1" />
-                {/* apple-touch-icon prefers PNG; if you add one later, replace this with /apple-touch-icon.png */}
-                <link rel="apple-touch-icon" href="/favicon.svg?v=1" />
-            </head>
+            {/* Remove the manual <head> block entirely */}
             <body className="bg-black antialiased min-h-screen flex flex-col h-full">
                 <Toaster theme="dark" position="top-right" richColors />
                 <main className="flex-1">
