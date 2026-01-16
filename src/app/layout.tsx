@@ -28,10 +28,11 @@ export default function RootLayout({
         <html lang="en" className={`${sourceSans.variable} h-full`}>
             <head>
                 {/* prefer SVG favicon when available, with a PNG/ICO fallback for legacy browsers */}
-                <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-                <link rel="icon" href="/favicon.ico" />
+                {/* add a version query param to force browsers/CDN to re-fetch when you bump it */}
+                <link rel="icon" href="/favicon.svg?v=1" type="image/svg+xml" />
+                <link rel="icon" href="/favicon.ico?v=1" />
                 {/* apple-touch-icon prefers PNG; if you add one later, replace this with /apple-touch-icon.png */}
-                <link rel="apple-touch-icon" href="/favicon.svg" />
+                <link rel="apple-touch-icon" href="/favicon.svg?v=1" />
             </head>
             <body className="bg-black antialiased min-h-screen flex flex-col h-full">
                 <Toaster theme="dark" position="top-right" richColors />
