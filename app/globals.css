@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-antonio: var(--font-antonio);
+  --font-space-grotesk: var(--font-space-grotesk);
+  --font-family-special-elite: var(--font-special-elite);
+}
+
+@custom-variant taos (&.taos-init:where(:not(.taos-animate)));
+
+html.js :where([class*="taos:"]:not(.taos-init)) {
+  visibility: hidden;
+}
+
+@source inline('!duration-[0ms] !delay-[0ms]');
