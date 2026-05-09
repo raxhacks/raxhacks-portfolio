@@ -2,7 +2,6 @@
 
 import { useRef, useCallback } from "react";
 import { Typewriter } from 'nextjs-simple-typewriter';
-import Image from "next/image";
 
 function RaxhacksTitle() {
     return (
