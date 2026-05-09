@@ -14,9 +14,9 @@ interface ContactSectionProps {
 }
 
 export function ContactSection({ scrollYProgress }: ContactSectionProps) {
-  const opacity = useTransform(scrollYProgress, [0, 0.97, 0.99, 1], [0, 0, 1, 1]);
-  const y = useTransform(scrollYProgress, [0, 0.97, 0.99, 1], ["40px", "40px", "0px", "0px"]);
-  const pointerEvents = useTransform(scrollYProgress, (v) => v >= 0.97 ? "auto" as const : "none" as const);
+  const opacity = useTransform(scrollYProgress, [0, 0.98, 0.99, 1], [0, 0, 1, 1]);
+  const y = useTransform(scrollYProgress, [0, 0.98, 0.99, 1], ["40px", "40px", "0px", "0px"]);
+  const pointerEvents = useTransform(scrollYProgress, (v) => v >= 0.98 ? "auto" as const : "none" as const);
 
   const contactLinksOpacity = useTransform(scrollYProgress, [0, 0.99, 1.00], [0, 0, 1]);
   const contactLinksFilter = useTransform(scrollYProgress, [0, 0.99, 1.00], ["blur(12px)", "blur(12px)", "blur(0px)"]);
@@ -31,9 +31,9 @@ export function ContactSection({ scrollYProgress }: ContactSectionProps) {
         <RevealText
           processedLines={processedText4}
           totalChars={totalChars4}
-          startProgress={0.97}
-          revealSpan={0.02}
-          revealBuffer={0.01}
+          startProgress={0.98}
+          revealSpan={0.01}
+          revealBuffer={0.005}
           maxProgress={0.99}
           scrollYProgress={scrollYProgress}
           className="text-3xl md:text-4xl font-antonio text-[#ededed]/85 mb-12 font-bold tracking-wider uppercase text-center"

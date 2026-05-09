@@ -36,11 +36,11 @@ interface ProjectsSectionProps {
 }
 
 export function ProjectsSection({ scrollYProgress }: ProjectsSectionProps) {
-  const fadeOutStart = 0.97;
+  const fadeOutStart = 0.98;
   const fadeOutEnd = 0.99;
 
-  const opacity = useTransform(scrollYProgress, [0, 0.76, 0.80, fadeOutStart, fadeOutEnd, 1], [0, 0, 1, 1, 0, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.76, 0.80, fadeOutStart, fadeOutEnd, 1], ["40px", "40px", "0px", "0px", "-40px", "-40px"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.76, 0.79, fadeOutStart, fadeOutEnd, 1], [0, 0, 1, 1, 0, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.76, 0.79, fadeOutStart, fadeOutEnd, 1], ["40px", "40px", "0px", "0px", "-40px", "-40px"]);
   const pointerEvents = useTransform(scrollYProgress, (v) => (v >= 0.76 && v < fadeOutEnd) ? "auto" as const : "none" as const);
 
   /**
@@ -48,8 +48,8 @@ export function ProjectsSection({ scrollYProgress }: ProjectsSectionProps) {
    * to ensure perfect symmetry when scrolling up or down
    */
   const projectsTransforms = projectsData.map(() => {
-    const cardStart = 0.86;
-    const cardEnd = 0.92;
+    const cardStart = 0.82;
+    const cardEnd = 0.87;
 
     const cardOpacity = useTransform(scrollYProgress, [0, cardStart, cardEnd, 1], [0, 0, 1, 1]);
     const cardFilter = useTransform(
@@ -71,10 +71,10 @@ export function ProjectsSection({ scrollYProgress }: ProjectsSectionProps) {
         <RevealText
           processedLines={processedText3}
           totalChars={totalChars3}
-          startProgress={0.80}
+          startProgress={0.79}
           revealSpan={0.03}
-          revealBuffer={0.03}
-          maxProgress={0.86}
+          revealBuffer={0.01}
+          maxProgress={0.83}
           scrollYProgress={scrollYProgress}
           className="text-2xl md:text-3xl font-antonio text-[#ededed]/80 mb-10 font-bold uppercase tracking-wider text-center"
         />

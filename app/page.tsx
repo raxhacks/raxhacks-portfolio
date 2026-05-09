@@ -34,12 +34,24 @@ const Main: React.FC = () => {
   return (
     <div ref={containerRef} className="relative h-[1600vh] bg-[#121212]">
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#121212]">
+        {/*
+          desktop background and mobile background based on the screen size
+        */}
         <MotionImage
           fill
-          src={`/background.png`}
+          src="/background.png"
           alt=""
-          className="object-cover absolute inset-0"
+          className="hidden sm:block object-cover absolute inset-0"
           style={{ filter: bgFilter }}
+          priority
+        />
+        <MotionImage
+          fill
+          src="/mobile-background.JPG"
+          alt=""
+          className="block sm:hidden object-cover absolute inset-0"
+          style={{ filter: bgFilter }}
+          priority
         />
 
         <div className="absolute inset-0 flex items-center justify-center">
