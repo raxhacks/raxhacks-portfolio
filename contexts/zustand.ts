@@ -1,11 +1,10 @@
 import { create } from "zustand";
 
-interface HeroStore {
-    blurHeroBg: boolean;
-    setBlurHeroBg: (blurHeroBg: boolean) => void;
+interface TerminalStore {
+    terminalClientRect: DOMRect | null;
+    setTerminalClientRect: (terminalClientRect: DOMRect | null) => void;
 }
-
-export const useHeroStore = create<HeroStore>((set) => ({
-    blurHeroBg: false,
-    setBlurHeroBg: (blurHeroBg: boolean) => set({ blurHeroBg }),
+export const useTerminalStore = create<TerminalStore>((set) => ({
+    terminalClientRect: null,
+    setTerminalClientRect: (terminalClientRect: DOMRect | null) => set({ terminalClientRect })
 }));

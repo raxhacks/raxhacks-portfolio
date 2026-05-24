@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { antonio, spaceGrotesk, specialElite } from "@/constants/fonts";
+import { amiri, antonio, firaCode, spaceGrotesk, specialElite } from "@/constants/fonts";
 
 export const metadata: Metadata = {
   title: "Raxhacks",
@@ -15,7 +15,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${antonio.variable} ${spaceGrotesk.variable} ${specialElite.variable} antialiased`}
+      className={`${antonio.variable} ${spaceGrotesk.variable} ${specialElite.variable}
+      ${amiri.variable} ${firaCode.variable}
+      antialiased`}
     >
       <body className="min-h-screen flex flex-col font-antonio">{children}</body>
     </html>

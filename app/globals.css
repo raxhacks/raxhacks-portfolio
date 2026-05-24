@@ -3,7 +3,22 @@
 @theme inline {
   --font-antonio: var(--font-antonio);
   --font-space-grotesk: var(--font-space-grotesk);
-  --font-family-special-elite: var(--font-special-elite);
+  --font-special-elite: var(--font-special-elite);
+  --font-amiri: var(--font-amiri);
+  --font-fira-code: var(--font-fira-code), monospace;
+  --animate-blink: blink 1s step-end infinite;
+
+  @keyframes blink {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0;
+    }
+  }
 }
 
 @custom-variant taos (&.taos-init:where(:not(.taos-animate)));

@@ -1,4 +1,4 @@
-import { Antonio, Space_Grotesk, Special_Elite } from "next/font/google";
+import { Antonio, Space_Grotesk, Special_Elite, Amiri, Fira_Code } from "next/font/google";
 
 export const spaceGrotesk = Space_Grotesk({
     variable: "--font-space-grotesk",
@@ -15,3 +15,16 @@ export const specialElite = Special_Elite({
     variable: "--font-special-elite",
     subsets: ["latin"],
 });
+
+export const amiri = Amiri({
+    weight: "400",
+    variable: "--font-amiri",
+    subsets: ["latin"]
+})
+
+export const firaCode = Fira_Code({
+    weight: "400",
+    variable: "--font-fira-code",
+    subsets: ["latin"]
+})
+
