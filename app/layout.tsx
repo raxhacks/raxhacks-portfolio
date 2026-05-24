@@ -19,7 +19,7 @@ export default function RootLayout({
       ${amiri.variable} ${firaCode.variable}
       antialiased`}
     >
-      <body className="min-h-screen flex flex-col font-antonio">{children}</body>
+      <body className="min-h-screen flex flex-col font-antonio bg-black text-white">{children}</body>
     </html>
   );
 }
