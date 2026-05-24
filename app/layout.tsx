@@ -4,7 +4,7 @@ import { amiri, antonio, firaCode, spaceGrotesk, specialElite } from "@/constant
 
 export const metadata: Metadata = {
   title: "Raxhacks",
-  description: "i'm raxhacks",
+  description: "raxOS v1.0.0",
 };
 
 export default function RootLayout({

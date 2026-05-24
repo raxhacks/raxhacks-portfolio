@@ -17,7 +17,7 @@ export default function OSIntro({ setOSStarted }: OSIntroProps) {
 
     return (
         <div className="fixed inset-0 flex flex-col items-center justify-center bg-black w-full h-screen px-4">
-            <div className="w-full max-w-4xl flex flex-col items-center gap-6 border">
+            <div className="w-full max-w-4xl flex flex-col items-center gap-6">
                 {showOSName &&
                     <>
                         <div className="text-white text-5xl 
