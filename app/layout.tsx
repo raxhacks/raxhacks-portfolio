@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { amiri, antonio, firaCode, spaceGrotesk, specialElite } from "@/constants/fonts";
+import RaxOSHeader from "@/components/header";
 
 export const metadata: Metadata = {
   title: "Raxhacks",
@@ -15,11 +16,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${antonio.variable} ${spaceGrotesk.variable} ${specialElite.variable}
-      ${amiri.variable} ${firaCode.variable}
+      className={`${amiri.variable} ${firaCode.variable}
       antialiased`}
     >
-      <body className="min-h-screen flex flex-col font-antonio bg-black text-white">{children}</body>
+      <body className="min-h-screen flex flex-col 
+      font-amiri bg-black text-white">
+        <RaxOSHeader />
+        {children}
+      </body>
     </html>
   );
 }

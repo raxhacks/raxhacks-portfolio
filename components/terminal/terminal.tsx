@@ -3,16 +3,18 @@ import { useEffect, useRef } from "react";
 import TerminalBody from "./terminal-body";
 import TerminalFooter from "./terminal-footer";
 
+import { useRaxOSHeader } from "@/contexts/zustand";
 import { useTerminalStore } from "@/contexts/zustand";
 
 export default function Terminal() {
     const terminalRef = useRef<HTMLDivElement | null>(null);
     const { setTerminalClientRect } = useTerminalStore();
+    const { setDisableHeader } = useRaxOSHeader();
 
     useEffect(() => {
         if (!terminalRef) return;
         const terminalClientRect = terminalRef.current?.getBoundingClientRect();
-        console.log(terminalClientRect)
+        setDisableHeader(false);
         setTerminalClientRect(terminalClientRect ? terminalClientRect : null);
     }, [terminalRef]);
 

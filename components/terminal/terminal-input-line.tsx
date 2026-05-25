@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useLayoutEffect } from "react";
-import CustomCaret from "./terminal-caret";
+import CustomCaret from "../caret";
 import TerminalPrompt from "./terminal-prompt";
 import TerminalMenu from "./terminal-menu";
 import { useTerminalStore } from "@/contexts/zustand";

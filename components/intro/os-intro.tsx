@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import LoadingBar from "./loading-os-bar";
+import { useRaxOSHeader } from "@/contexts/zustand";
 
 interface OSIntroProps {
     setOSStarted: () => void;
 }
 export default function OSIntro({ setOSStarted }: OSIntroProps) {
     const [showOSName, setShowOSName] = useState(false);
+    const { setDisableHeader } = useRaxOSHeader();
 
     useEffect(() => {
+        setDisableHeader(true);
         const timer = setTimeout(() => {
             setShowOSName(true);
         }, 800);
