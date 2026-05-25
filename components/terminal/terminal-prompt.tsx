@@ -10,14 +10,14 @@
 export default function TerminalPrompt() {
     return (
         <span>
-            <span className="text-[#00FFFF]">
+            <span className="text-terminal-aqua">
                 g0d3nc14@
             </span>
-            <span className="text-[#5555FF]">
-                cloud:-
+            <span className="text-terminal-blue">
+                cloud:
             </span>
-            <span className="text-[#FF414C]">
-                $
+            <span className="text-terminal-red">
+                /
             </span>
         </span>
     );

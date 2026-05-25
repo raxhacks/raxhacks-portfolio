@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import TerminalInputLine from "./terminal-input-line";
 
-import { commandExecutor } from "@/lib/command-executor";
+import { commandExecutor } from "@/lib/raxOS/command-executor";
 
 export default function TerminalBody() {
     const [commandsHistory, setCommandsHistory] = useState<string[]>([]);
@@ -16,7 +16,7 @@ export default function TerminalBody() {
             const parsedCmd = cmdline.split("\n")[0];
             return [...prev, parsedCmd];
         });
-        commandExecutor({ cmdline, setCommandsHistoryView });
+        commandExecutor({ cmdline, currentPath: "/", setCommandsHistoryView });
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {

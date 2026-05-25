@@ -8,6 +8,10 @@
   --font-fira-code: var(--font-fira-code), monospace;
   --animate-blink: blink 1s step-end infinite;
 
+  --color-terminal-aqua: #00FFFF;
+  --color-terminal-blue: #5555FF;
+  --color-terminal-red: #FF414C;
+
   @keyframes blink {
 
     0%,
@@ -28,3 +32,23 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
 }
 
 @source inline('!duration-[0ms] !delay-[0ms]');
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+  border-left: 1px solid white;
+  border-radius: 0px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffffff;
+  border-radius: 0px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-terminal-aqua);
+}

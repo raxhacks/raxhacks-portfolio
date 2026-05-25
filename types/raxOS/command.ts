@@ -17,6 +17,7 @@ export interface Command {
     execute: (
         args: string[],
         setCommandsHistoryView: React.Dispatch<React.SetStateAction<string[]>>,
+        currentPath: string,
         cmdline: string
     ) => void;
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { Command } from "@/types/command";
-import { commands } from "@/lib/command-executor";
+import { Command } from "@/types/raxOS/command";
+import { commands } from "@/lib/raxOS/command-executor";
 
 interface TerminalMenuProps {
     filter: string;

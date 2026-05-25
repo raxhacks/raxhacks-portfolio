@@ -7,7 +7,7 @@ export default function TerminalFooter() {
             </div>
             <div className="bg-white w-fit text-black
             px-1">
-                v1
+                v1.0.0
             </div>
         </div>
     );

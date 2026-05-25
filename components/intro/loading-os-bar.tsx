@@ -67,17 +67,19 @@ export default function LoadingBar({ setOSStarted }: LoadingBarProps) {
 
     return (
         <div className="w-full max-w-[300px] md:max-w-[400px] mx-auto flex flex-col items-center">
-            {showBar && (
-                <div className="w-full h-1.5 relative">
-                    <div className="absolute w-full h-1.5 border-b border-white" />
-                    <div
-                        className={`absolute left-0 top-0 bg-white h-1.5 transition-all duration-150 ease-out`}
-                        style={{
-                            width: `${steps[progress]}%`
-                        }}
-                    />
-                </div>
-            )}
+            <div className="w-full h-1.5 relative">
+                {showBar &&
+                    <>
+                        <div className="absolute w-full h-1.5 border-b border-white" />
+                        <div
+                            className={`absolute left-0 top-0 bg-white h-1.5 transition-all duration-150 ease-out`}
+                            style={{
+                                width: `${steps[progress]}%`
+                            }}
+                        />
+                    </>
+                }
+            </div>
             <div className="text-white py-4 font-fira-code text-[12px] md:text-sm 
             whitespace-nowrap relative">
                 <span className={`relative inline-block ${!showText && "text-transparent"}`}>
