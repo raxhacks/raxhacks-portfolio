@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { amiri, antonio, firaCode, spaceGrotesk, specialElite } from "@/constants/fonts";
-import RaxOSHeader from "@/components/header";
+import { firaCode, spaceMono } from "@/constants/fonts";
 
 export const metadata: Metadata = {
   title: "Raxhacks",
-  description: "raxOS v1.0.0",
+  description:
+    "welcome mfs to my portfolio",
 };
 
 export default function RootLayout({
@@ -16,12 +16,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${amiri.variable} ${firaCode.variable}
-      antialiased`}
+      className={`${spaceMono.variable} ${firaCode.variable} antialiased`}
     >
-      <body className="min-h-screen flex flex-col 
-      font-amiri bg-black text-white">
-        <RaxOSHeader />
+      <body className="min-h-screen bg-term-bg font-fira-code text-term-fg">
         {children}
       </body>
     </html>
